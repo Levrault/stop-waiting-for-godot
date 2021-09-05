@@ -1,0 +1,425 @@
+[gd_scene load_steps=29 format=2]
+
+[ext_resource path="res://assets/textures/Light_Texture_8.tres" type="Material" id=1]
+[ext_resource path="res://src/VFX/enemy_body_disolve.tres" type="Material" id=2]
+[ext_resource path="res://src/Enemies/Enemy.gd" type="Script" id=3]
+[ext_resource path="res://src/Actor/Stats.gd" type="Script" id=5]
+[ext_resource path="res://src/Enemies/Google.gd" type="Script" id=6]
+[ext_resource path="res://src/Libraries/StateMachine/StateMachine.gd" type="Script" id=7]
+[ext_resource path="res://src/Enemies/States/Idle.gd" type="Script" id=8]
+[ext_resource path="res://src/Enemies/States/Follow.gd" type="Script" id=9]
+[ext_resource path="res://src/Enemies/States/Die.gd" type="Script" id=10]
+[ext_resource path="res://src/Enemies/States/Attack.gd" type="Script" id=11]
+[ext_resource path="res://assets/audio/glass-bottle-bounce.wav" type="AudioStream" id=12]
+[ext_resource path="res://assets/audio/woosh.wav" type="AudioStream" id=13]
+[ext_resource path="res://assets/audio/alert.mp3" type="AudioStream" id=14]
+[ext_resource path="res://assets/textures/Red_Texture_8.tres" type="Material" id=15]
+
+[sub_resource type="Animation" id=1]
+resource_name = "Alert"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/path = NodePath("RotationHelper/Alert:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.5, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, -2.09197, 0 ), Vector3( 0, 3.9355, 0 ), Vector3( 0, 3.9355, 0 ), Vector3( 0, -2.09197, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("RotationHelper/Alert:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.5, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0.1, 0.1, 0.1 ), Vector3( 1, 1, 1 ), Vector3( 1, 1, 1 ), Vector3( 0.1, 0.1, 0.1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("RotationHelper/Alert:rotation_degrees")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 45, 0 ), Vector3( 0, 90, 0 ), Vector3( 0, 135, 0 ), Vector3( 0, 180, 0 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("AudioStreamPlayer3D_alert:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "Attack"
+length = 0.7
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("RotationHelper/Fist:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.05, 0.36, 0.38, 0.4, 0.45, 0.55, 0.58, 0.61, 0.64, 0.7 ),
+"transitions": PoolRealArray( 2, 2, 2, 2, 2, 1, 0.5, 0.5, 0.5, 0.5, 1 ),
+"update": 0,
+"values": [ Vector3( -0.333425, 0.0256329, -1.26629 ), Vector3( 5.09379, 0.0256329, -1.26629 ), Vector3( 5.09379, 0.0256329, -1.26629 ), Vector3( 5.09379, 0.0256329, -5.12522 ), Vector3( 1.98483, 0.0256329, -7.41927 ), Vector3( 1.98483, 0.0256329, -9.86963 ), Vector3( 1.98483, 0.0256329, -9.86963 ), Vector3( 1.98483, 0.0256329, -7.41927 ), Vector3( 5.09379, 0.0256329, -5.12522 ), Vector3( 5.09379, 0.0256329, -1.26629 ), Vector3( -0.333425, 0.0256329, -1.26629 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("RotationHelper/Fist:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.05, 0.36, 0.4, 0.45, 0.46, 0.65, 0.7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0.1, 0.1, 0.1 ), Vector3( 1, 1, 1 ), Vector3( 1, 1, 1 ), Vector3( 1.2, 1, 1.5 ), Vector3( 1.2, 1.2, 1.2 ), Vector3( 1.5, 1.5, 1 ), Vector3( 1.5, 1.5, 1.5 ), Vector3( 0.1, 0.1, 0.1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("RotationHelper/DamageSource/CollisionShape:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.45, 0.56 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ true, false, true ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("AudioStreamPlayer3D_woosh:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0.35, 0.68 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "DEFAULT"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("RotationHelper/Fist:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( -0.333425, 0.0256329, -1.26629 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("RotationHelper/Fist:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0.1, 0.1, 0.1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("RotationHelper/DamageSource/CollisionShape:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("AudioStreamPlayer3D_alert:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("AudioStreamPlayer3D_woosh:playing")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("RotationHelper/Alert:scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0.1, 0.1, 0.1 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("RotationHelper/Alert:translation")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0, -2.09197, 0 ) ]
+}
+
+[sub_resource type="CapsuleShape" id=4]
+radius = 3.0
+height = 3.0
+
+[sub_resource type="SphereShape" id=5]
+radius = 60.0
+
+[sub_resource type="BoxShape" id=6]
+extents = Vector3( 7.36008, 3, 7.68983 )
+
+[sub_resource type="BoxShape" id=7]
+extents = Vector3( 7.10756, 3, 8.89776 )
+
+[sub_resource type="CapsuleMesh" id=8]
+
+[sub_resource type="GDScript" id=16]
+script/source = "extends MeshInstance
+
+signal body_disolved
+
+onready var tween := $Tween
+onready var material := get_surface_material(0)
+
+
+func _ready() -> void:
+	tween.connect(\"tween_all_completed\", self, \"_on_Tween_tween_all_completed\")
+	material.set_shader_param(\"dissolve_amount\", 0.0)
+
+
+func dissolve():
+	visible = true
+	tween.interpolate_method(
+		self, \"animate_dissolve\", 0, 1, 1, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT
+	)
+	tween.start()
+
+
+func animate_dissolve(progress: float) -> void:
+	material.set_shader_param(\"dissolve_amount\", ease(progress, 0.5))
+
+
+func _on_Tween_tween_all_completed() -> void:
+	visible = false
+	emit_signal(\"body_disolved\")
+	queue_free()
+"
+
+[sub_resource type="CapsuleShape" id=10]
+height = 2.00441
+
+[sub_resource type="CapsuleMesh" id=11]
+mid_height = 2.0
+
+[sub_resource type="CubeMesh" id=12]
+
+[sub_resource type="CubeMesh" id=13]
+size = Vector3( 1.8, 2, 1.8 )
+
+[sub_resource type="CubeMesh" id=14]
+size = Vector3( 2, 6, 2 )
+
+[node name="Enemy" type="KinematicBody" groups=[
+"Enemy",
+]]
+script = ExtResource( 3 )
+life = 30.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "DEFAULT"
+anims/Alert = SubResource( 1 )
+anims/Attack = SubResource( 2 )
+anims/DEFAULT = SubResource( 3 )
+
+[node name="AudioStreamPlayer3D_alert" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource( 14 )
+unit_db = 19.073
+
+[node name="AudioStreamPlayer3D_woosh" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource( 13 )
+
+[node name="Stats" type="Node" parent="."]
+script = ExtResource( 5 )
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 4.76779, 0 )
+shape = SubResource( 4 )
+
+[node name="RotationHelper" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.76053, 0 )
+
+[node name="Vision" type="Area" parent="RotationHelper"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape" type="CollisionShape" parent="RotationHelper/Vision"]
+shape = SubResource( 5 )
+
+[node name="AttackZone" type="Area" parent="RotationHelper"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -6.76053, 0 )
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape" type="CollisionShape" parent="RotationHelper/AttackZone"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0240984, 5.1618, -9.09955 )
+shape = SubResource( 6 )
+
+[node name="DamageSource" type="Area" parent="RotationHelper"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -6.76053, 0 )
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape" type="CollisionShape" parent="RotationHelper/DamageSource"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0240984, 5.1618, -8.79823 )
+shape = SubResource( 7 )
+disabled = true
+
+[node name="Body" type="MeshInstance" parent="RotationHelper"]
+transform = Transform( 3, 0, 0, 0, -1.31134e-07, -3, 0, 3, -1.31134e-07, 0, -2.04781, 0 )
+mesh = SubResource( 8 )
+material/0 = ExtResource( 2 )
+script = SubResource( 16 )
+
+[node name="Tween" type="Tween" parent="RotationHelper/Body"]
+
+[node name="Google" type="RigidBody" parent="RotationHelper"]
+mode = 1
+mass = 6.82959
+gravity_scale = 5.0
+contacts_reported = 1
+contact_monitor = true
+can_sleep = false
+script = ExtResource( 6 )
+
+[node name="CollisionShape" type="CollisionShape" parent="RotationHelper/Google"]
+transform = Transform( 1.91069e-15, 4.37114e-08, 1, 1, -4.37114e-08, 0, 4.37114e-08, 1, -4.37114e-08, 0, 0, -2.85819 )
+shape = SubResource( 10 )
+disabled = true
+
+[node name="MeshInstance" type="MeshInstance" parent="RotationHelper/Google"]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.0332458, 0, -2.80411 )
+mesh = SubResource( 11 )
+material/0 = ExtResource( 1 )
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="RotationHelper/Google"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3.08941 )
+stream = ExtResource( 12 )
+unit_db = 26.49
+max_db = 6.0
+bus = "Sfx"
+
+[node name="Fist" type="Spatial" parent="RotationHelper"]
+transform = Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, -0.333425, 0.0256329, -1.26629 )
+
+[node name="Base" type="MeshInstance" parent="RotationHelper/Fist"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.584671, 0, 0.450634 )
+mesh = SubResource( 12 )
+material/0 = null
+
+[node name="Base2" type="MeshInstance" parent="RotationHelper/Fist"]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.584671, 0, 1.86248 )
+mesh = SubResource( 12 )
+material/0 = null
+
+[node name="Finger" type="MeshInstance" parent="RotationHelper/Fist"]
+transform = Transform( 0.4, 0, 0, 0, 1, 0, 0, 0, 0.9, -0.237671, 0.672173, -0.0637016 )
+mesh = SubResource( 12 )
+material/0 = null
+
+[node name="Finder2" type="MeshInstance" parent="RotationHelper/Fist"]
+transform = Transform( 0.4, 0, 0, 0, 1, 0, 0, 0, 0.9, 0.719307, 0.672173, -0.0637016 )
+mesh = SubResource( 12 )
+material/0 = null
+
+[node name="Finder3" type="MeshInstance" parent="RotationHelper/Fist"]
+transform = Transform( 0.4, 0, 0, 0, 1, 0, 0, 0, 0.9, 1.60787, 0.672173, -0.0637016 )
+mesh = SubResource( 12 )
+material/0 = null
+
+[node name="Thumb" type="MeshInstance" parent="RotationHelper/Fist"]
+transform = Transform( 1, 0, 0, 0, 0.4, 0, 0, 0, 0.8, -0.132637, -0.950392, 0.0493698 )
+mesh = SubResource( 12 )
+material/0 = null
+
+[node name="Alert" type="Spatial" parent="RotationHelper"]
+transform = Transform( -0.1, 0, -8.74228e-09, 0, 0.1, 0, 8.74228e-09, 0, -0.1, 0, -2.09197, 0 )
+
+[node name="MeshInstance" type="MeshInstance" parent="RotationHelper/Alert"]
+mesh = SubResource( 13 )
+material/0 = ExtResource( 15 )
+
+[node name="MeshInstance2" type="MeshInstance" parent="RotationHelper/Alert"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.67178, 0 )
+mesh = SubResource( 14 )
+material/0 = ExtResource( 15 )
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource( 7 )
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource( 8 )
+
+[node name="Follow" type="Node" parent="StateMachine"]
+script = ExtResource( 9 )
+
+[node name="Timer" type="Timer" parent="StateMachine/Follow"]
+wait_time = 0.1
+
+[node name="Attack" type="Node" parent="StateMachine"]
+script = ExtResource( 11 )
+
+[node name="Timer" type="Timer" parent="StateMachine/Attack"]
+
+[node name="Die" type="Node" parent="StateMachine"]
+script = ExtResource( 10 )

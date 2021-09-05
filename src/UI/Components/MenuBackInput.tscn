@@ -1,0 +1,20 @@
+[gd_scene format=2]
+
+[node name="MenuBackInput" type="HBoxContainer"]
+margin_left = 111.0
+margin_right = 179.0
+margin_bottom = 14.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="IconBack" type="Label" parent="."]
+margin_right = 45.0
+margin_bottom = 14.0
+text = "(Echap)"
+
+[node name="Back" type="Label" parent="."]
+margin_left = 49.0
+margin_right = 79.0
+margin_bottom = 14.0
+text = "Back"

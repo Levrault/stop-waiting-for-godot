@@ -1,0 +1,72 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://src/UI/Layout/OptionsLayout.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/UI/Components/HList.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/UI/Options/SavingButton/VideoSavingButton.gd" type="Script" id=3]
+
+[node name="VideoOptionsMenu" instance=ExtResource( 1 )]
+default_field_to_focus = NodePath("Wrapper/Page/Contents/HBoxContainer/Vsync")
+
+[node name="Title" parent="Wrapper/Page" index="0"]
+margin_bottom = 14.0
+text = "ui_options_video"
+
+[node name="Contents" parent="Wrapper/Page" index="1"]
+margin_top = 18.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Wrapper/Page/Contents" index="0"]
+margin_top = 281.0
+margin_right = 1240.0
+margin_bottom = 303.0
+
+[node name="Label" type="Label" parent="Wrapper/Page/Contents/HBoxContainer" index="0"]
+margin_top = 4.0
+margin_right = 37.0
+margin_bottom = 18.0
+text = "Vsync"
+
+[node name="Vsync" parent="Wrapper/Page/Contents/HBoxContainer" index="1" instance=ExtResource( 2 )]
+margin_left = 41.0
+margin_right = 1240.0
+key = "use_vsync"
+items = [ "cfg_yes", "cfg_no" ]
+focus = true
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Wrapper/Page/Contents" index="1"]
+margin_top = 313.0
+margin_right = 1240.0
+margin_bottom = 335.0
+
+[node name="Label" type="Label" parent="Wrapper/Page/Contents/HBoxContainer2" index="0"]
+margin_top = 4.0
+margin_right = 51.0
+margin_bottom = 18.0
+text = "Display "
+
+[node name="DisplayMode" parent="Wrapper/Page/Contents/HBoxContainer2" index="1" instance=ExtResource( 2 )]
+margin_left = 55.0
+margin_right = 1240.0
+key = "display_mode"
+items = [ "cfg_fullscreen", "cfg_borderless", "cfg_windowed" ]
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="Wrapper/Page/Contents" index="2"]
+margin_top = 345.0
+margin_right = 1240.0
+margin_bottom = 367.0
+
+[node name="Label" type="Label" parent="Wrapper/Page/Contents/HBoxContainer3" index="0"]
+margin_top = 4.0
+margin_right = 68.0
+margin_bottom = 18.0
+text = "Resolution"
+
+[node name="Display" parent="Wrapper/Page/Contents/HBoxContainer3" index="1" instance=ExtResource( 2 )]
+margin_left = 72.0
+margin_right = 1240.0
+key = "resolution"
+items = [ "2560x1440", "1920x1080", "1366x768", "1280x720", "800x600", "960x540", "640x480", "480x270" ]
+start_index = 3
+
+[node name="MenuSaveButton" parent="Wrapper/Page/OptionsFooter" index="1"]
+script = ExtResource( 3 )
+section = "display"

@@ -1,0 +1,15 @@
+# Made using Asset Forge (2.2.0)
+
+:materials
+
+[name:_defaultMat;color:RGBA(0.937, 0.953, 1.000, 1.000);scale:(1.0, 1.0);shader:Default;valueA:0.5;valueB:0;]
+[name:dark;color:RGBA(0.185, 0.194, 0.227, 1.000);scale:(1.0, 1.0);shader:Default;valueA:0.5;valueB:0;]
+[name:metalDark;color:RGBA(0.616, 0.133, 0.980, 1.000);scale:(1.0, 1.0);shader:Default;valueA:0.5;valueB:0;]
+[name:lens1;color:RGBA(0.010, 0.197, 0.800, 1.000);scale:(1.0, 1.0);shader:Default;valueA:0.5;valueB:0;]
+
+:models
+
+[name:;collection:Zeus_Blasters;type:largeBlaster_center_nobottom;position:(0.0000, 0.0000, -1.0000);rotation:(0.0000, 0.0000, 0.0000);scale:(1.0000, 1.0000, 1.0000);group:;locked:False;hidden:False;materials:metalDark+dark+_defaultMat;]
+[name:;collection:Zeus_Blasters;type:mediumBlaster_center_half_detail_2;position:(0.0000, 0.0000, 0.0000);rotation:(0.0000, 0.0000, 0.0000);scale:(1.0000, 1.0000, 1.0000);group:;locked:False;hidden:False;materials:_defaultMat+metalDark+dark;]
+[name:;collection:Zeus_Blasters;type:barrel_back_hercules;position:(0.0000, 0.3000, 1.0000);rotation:(0.0000, 0.0000, 0.0000);scale:(1.0000, 1.0000, 1.0000);group:;locked:False;hidden:False;materials:dark;]
+[name:;collection:Zeus_Blasters;type:grip_trigger_viper_1c;position:(0.0000, 0.0000, -1.0000);rotation:(0.0000, 0.0000, 0.0000);scale:(1.0000, 1.0000, 1.0000);group:;locked:False;hidden:False;materials:_defaultMat+dark+metalDark;]

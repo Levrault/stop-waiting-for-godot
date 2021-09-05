@@ -1,0 +1,77 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://assets/textures/Light_Texture_8.tres" type="Material" id=1]
+
+[sub_resource type="CubeMesh" id=3]
+
+[sub_resource type="Animation" id=4]
+resource_name = "DEFAULT"
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.15, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0.1, 0.1, 0.7 ), Vector3( 1, 1, 1 ), Vector3( 0.1, 0.1, 0.1 ) ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 1 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "queue_free"
+} ]
+}
+
+[node name="MuzzleSmoke" type="Spatial"]
+transform = Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0 )
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+transform = Transform( 0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0 )
+mesh = SubResource( 3 )
+material/0 = ExtResource( 1 )
+
+[node name="MeshInstance2" type="MeshInstance" parent="."]
+transform = Transform( 0.2, 0, 0, 0, 0.2, 2.98023e-08, 0, -2.98023e-08, 0.2, 0.462409, -0.0300403, 0.000799727 )
+mesh = SubResource( 3 )
+material/0 = ExtResource( 1 )
+
+[node name="MeshInstance4" type="MeshInstance" parent="."]
+transform = Transform( 0.2, 0, 0, 0, 0.2, 2.98023e-08, 0, -2.98023e-08, 0.2, 0.0420234, -0.0090997, -0.517244 )
+mesh = SubResource( 3 )
+material/0 = ExtResource( 1 )
+
+[node name="MeshInstance5" type="MeshInstance" parent="."]
+transform = Transform( 0.2, 0, 0, 0, 0.2, 2.98023e-08, 0, -2.98023e-08, 0.2, 0.0420234, -0.0090997, 0.49243 )
+mesh = SubResource( 3 )
+material/0 = ExtResource( 1 )
+
+[node name="MeshInstance6" type="MeshInstance" parent="."]
+transform = Transform( 0.2, 0, 0, 0, 0.2, 2.98023e-08, 0, -2.98023e-08, 0.2, 0.0420234, 0.480131, -0.000490546 )
+mesh = SubResource( 3 )
+material/0 = ExtResource( 1 )
+
+[node name="MeshInstance7" type="MeshInstance" parent="."]
+transform = Transform( 0.2, 0, 0, 0, 0.2, 2.98023e-08, 0, -2.98023e-08, 0.2, 0.0420234, -0.507387, -0.000490546 )
+mesh = SubResource( 3 )
+material/0 = ExtResource( 1 )
+
+[node name="MeshInstance3" type="MeshInstance" parent="."]
+transform = Transform( 0.2, 0, 0, 0, 0.2, 2.98023e-08, 0, -2.98023e-08, 0.2, -0.407396, -0.0300403, -0.00928717 )
+mesh = SubResource( 3 )
+material/0 = ExtResource( 1 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "DEFAULT"
+anims/DEFAULT = SubResource( 4 )

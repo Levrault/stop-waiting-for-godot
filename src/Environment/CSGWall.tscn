@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://assets/textures/Orange_Texture_8.tres" type="Material" id=1]
+
+[node name="CSGWall" type="CSGBox"]
+use_collision = true
+width = 112.0
+height = 48.0
+depth = 8.0
+material = ExtResource( 1 )

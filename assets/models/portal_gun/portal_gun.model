@@ -1,0 +1,20 @@
+# Made using Asset Forge (2.2.0)
+
+:materials
+
+[name:_defaultMat;color:RGBA(0.937, 0.953, 1.000, 1.000);scale:(1.0, 1.0);shader:Default;valueA:0.5;valueB:0;]
+[name:metalDark;color:RGBA(0.897, 0.508, 0.000, 1.000);scale:(1.0, 1.0);shader:Default;valueA:0.5;valueB:0;]
+[name:dark;color:RGBA(0.185, 0.194, 0.227, 1.000);scale:(1.0, 1.0);shader:Default;valueA:0.5;valueB:0;]
+[name:bandage;color:RGBA(0.560, 0.283, 0.083, 1.000);scale:(1.0, 1.0);shader:Default;valueA:0.5;valueB:0;]
+[name:metalLight;color:RGBA(0.420, 0.420, 0.420, 1.000);scale:(1.0, 1.0);shader:Default;valueA:0.5;valueB:0;]
+[name:led_color1;color:RGBA(0.004, 1.000, 0.016, 1.000);scale:(1.0, 1.0);shader:Default;valueA:0.5;valueB:0;]
+
+:models
+
+[name:;collection:Zeus_Blasters;type:ironsight_hercules_front;position:(2.0000, 1.0000, 0.0000);rotation:(0.0000, 0.0000, 0.0000);scale:(1.0000, 1.0000, 1.0000);group:;locked:False;hidden:False;materials:dark+led_color1;]
+[name:;collection:Zeus_Blasters;type:rail;position:(2.0000, 1.0000, -1.0000);rotation:(0.0000, 0.0000, 0.0000);scale:(1.0000, 1.0000, 1.0000);group:;locked:False;hidden:False;materials:dark;]
+[name:;collection:Zeus_Blasters;type:grip_trigger_carmine_bandages;position:(2.0000, 0.0000, -1.1000);rotation:(0.0000, 0.0000, 0.0000);scale:(1.0000, 1.0000, 1.0000);group:;locked:False;hidden:False;materials:_defaultMat+dark+metalDark+bandage;]
+[name:;collection:Zeus_Blasters;type:mediumBlaster_magwell_carmine;position:(2.0000, 0.2524, -0.2000);rotation:(0.0000, 0.0000, 0.0000);scale:(1.0000, 0.7200, 1.0000);group:;locked:False;hidden:False;materials:_defaultMat+metalDark+dark+metalLight;]
+[name:;collection:Zeus_Blasters;type:mediumBlaster_front_round;position:(2.0000, 0.0000, -2.0000);rotation:(0.0000, 180.0000, 0.0000);scale:(1.0000, 1.0000, 1.0000);group:;locked:False;hidden:False;materials:_defaultMat+metalDark;]
+[name:;collection:Zeus_Blasters;type:magazine_coyote_doubleDrum;position:(1.9919, 0.7527, 0.4202);rotation:(0.0000, 0.0000, 0.0000);scale:(0.2156, 0.2722, 0.5000);group:;locked:False;hidden:False;materials:_defaultMat+metalDark+dark;]
+[name:;collection:Zeus_Blasters;type:handguard_coyote;position:(2.0000, 0.0000, -1.0000);rotation:(0.0000, 0.0000, 0.0000);scale:(1.0000, 1.0000, 1.0000);group:;locked:False;hidden:False;materials:_defaultMat+metalDark+dark;]

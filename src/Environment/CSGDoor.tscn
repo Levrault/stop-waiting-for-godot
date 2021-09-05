@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://assets/textures/Red_Texture_8.tres" type="Material" id=1]
+[ext_resource path="res://src/Environment/LockedDoor.gd" type="Script" id=2]
+[ext_resource path="res://assets/audio/unlock.wav" type="AudioStream" id=3]
+
+[node name="CSGDoor" type="CSGBox"]
+use_collision = true
+width = 16.0
+height = 28.0
+depth = 8.0
+material = ExtResource( 1 )
+script = ExtResource( 2 )
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+bus = "Sfx"

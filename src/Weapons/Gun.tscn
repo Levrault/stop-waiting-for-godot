@@ -1,0 +1,146 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://assets/models/portal_gun/portal_gun.glb" type="PackedScene" id=1]
+[ext_resource path="res://src/Weapons/Gun.gd" type="Script" id=2]
+[ext_resource path="res://src/Libraries/AnimationPlayer.gd" type="Script" id=3]
+[ext_resource path="res://assets/audio/Gunshot.mp3" type="AudioStream" id=4]
+[ext_resource path="res://assets/textures/Orange_Texture_8.tres" type="Material" id=5]
+
+[sub_resource type="Animation" id=1]
+resource_name = "Gun_fire"
+length = 0.3
+step = 0.01
+tracks/0/type = "method"
+tracks/0/path = NodePath("AnimationPlayer")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.05 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "animation_callback"
+} ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.02, 0.05, 0.15, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 32.212, 0, 0 ), Vector3( 36, 0, 0 ), Vector3( 0, 0, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:translation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.05, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 0.602, 1 ), Vector3( 0, 0, 0 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("AudioStreamPlayer3D:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0.05, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("MuzzleFlash:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.02 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "Gun_idle"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 0.4 ),
+"transitions": PoolRealArray( 0.5, 1, 2 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 0.1, 0 ), Vector3( 0, 0.1, 0 ) ]
+}
+
+[sub_resource type="CubeMesh" id=3]
+
+[node name="portal_gun" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+sway_left = Vector3( 0, 0.2, 0 )
+sway_right = Vector3( 0, -0.2, 0 )
+
+[node name="ironsight_hercules_front" parent="." index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+
+[node name="rail" parent="." index="1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 1 )
+
+[node name="grip_trigger_carmine_bandages" parent="." index="2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.76837e-07, 1.1 )
+
+[node name="mediumBlaster_magwell_carmine" parent="." index="3"]
+transform = Transform( 1, 0, 0, 0, 0.72, 0, 0, 0, 1, 0, 0.2524, 0.2 )
+
+[node name="mediumBlaster_front_round" parent="." index="4"]
+transform = Transform( -1, 1.19209e-07, 1.05529e-07, 1.19209e-07, 1, 1.81058e-08, -1.05529e-07, 1.81059e-08, -1, 0, -4.76837e-07, 2 )
+
+[node name="magazine_coyote_doubleDrum" parent="." index="5"]
+transform = Transform( 0.2156, 0, 0, 0, 0.2722, 0, 0, 0, 0.5, 0, 0.7527, -0.4202 )
+
+[node name="handguard_coyote" parent="." index="6"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.76837e-07, 1 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="7"]
+anims/Gun_fire = SubResource( 1 )
+anims/Gun_idle = SubResource( 2 )
+script = ExtResource( 3 )
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="." index="8"]
+stream = ExtResource( 4 )
+bus = "Sfx"
+
+[node name="MuzzleFlash" type="Spatial" parent="." index="9"]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0.819826, -1.93324 )
+visible = false
+
+[node name="MeshInstance" type="MeshInstance" parent="MuzzleFlash" index="0"]
+transform = Transform( 0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0, -1.53304 )
+mesh = SubResource( 3 )
+material/0 = ExtResource( 5 )
+
+[node name="MeshInstance2" type="MeshInstance" parent="MuzzleFlash" index="1"]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, -0.237341 )
+mesh = SubResource( 3 )
+material/0 = ExtResource( 5 )
+
+[node name="MeshInstance4" type="MeshInstance" parent="MuzzleFlash" index="2"]
+transform = Transform( 0.2, 0, 0, 0, 0.2, 2.98023e-08, 0, -2.98023e-08, 0.2, -0.000656843, -0.00314516, 0.492033 )
+mesh = SubResource( 3 )
+material/0 = ExtResource( 5 )

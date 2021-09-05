@@ -1,0 +1,85 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://src/UI/Layout/MenuLayout.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/UI/Components/Button/QuitButton.gd" type="Script" id=2]
+[ext_resource path="res://src/UI/Navigation/NavigationButton.gd" type="Script" id=3]
+[ext_resource path="res://src/UI/Play.gd" type="Script" id=4]
+
+[node name="TitleScreen" instance=ExtResource( 1 )]
+default_field_to_focus = NodePath("Wrapper/Page/Contents/Play")
+
+[node name="Title" parent="Wrapper/Page" index="0"]
+text = "Keep waiting for Godot
+The FPS"
+
+[node name="Panel" type="Panel" parent="Wrapper/Page" index="1"]
+modulate = Color( 1, 1, 1, 0.733333 )
+margin_top = 85.0
+margin_right = 1240.0
+margin_bottom = 375.0
+size_flags_vertical = 3
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Wrapper/Page/Panel" index="0"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Hello friend,
+This game has been made during the StopWaitingForGodot game jam created by Terry Cavanagh
+This is just a simple fps since the theme was \"keep it simple\"
+I already got some experience with Godot but I never touch 3D once in my life. Everything was new. Hope you gonna enjoy this small
+5 to 10 minutes games
+
+The default keybinding is
+- WASD to move
+- Space to jump
+- Shift to sprint
+- C to crouch (you don't need it, even if a code a slide behavior, I didn't have time to implement mecanic that use it)
+- Escape to pause
+
+You can remap all of this in the settings menu Enjoy!  Levrault"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Contents" parent="Wrapper/Page" index="2"]
+margin_top = 379.0
+margin_right = 92.0
+size_flags_horizontal = 2
+alignment = 2
+
+[node name="Play" type="Button" parent="Wrapper/Page/Contents" index="0"]
+margin_top = 205.0
+margin_right = 92.0
+margin_bottom = 227.0
+text = "Play"
+align = 0
+script = ExtResource( 4 )
+__meta__ = {
+"_editor_description_": ""
+}
+is_default_focused = true
+
+[node name="Options" type="Button" parent="Wrapper/Page/Contents" index="1"]
+margin_top = 237.0
+margin_right = 92.0
+margin_bottom = 259.0
+text = "Options"
+align = 0
+script = ExtResource( 3 )
+__meta__ = {
+"_editor_description_": ""
+}
+navigate_to = "ListOptionsMenu"
+
+[node name="Quit" type="Button" parent="Wrapper/Page/Contents" index="2"]
+margin_top = 269.0
+margin_right = 92.0
+margin_bottom = 291.0
+text = "Quit"
+align = 0
+script = ExtResource( 2 )
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="MenuFooter" parent="Wrapper/Page" index="3"]
+has_back_action = false

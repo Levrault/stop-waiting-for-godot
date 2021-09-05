@@ -1,0 +1,199 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://src/Environment/Tiles/tiles_library.tres" type="MeshLibrary" id=1]
+[ext_resource path="res://src/Player/Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/Levels/Level.gd" type="Script" id=3]
+[ext_resource path="res://src/UI/InGame/GameOver.tscn" type="PackedScene" id=4]
+[ext_resource path="res://src/Levels/Countdown.gd" type="Script" id=5]
+[ext_resource path="res://src/Objects/Godot.tscn" type="PackedScene" id=6]
+
+[sub_resource type="ProceduralSky" id=1]
+radiance_size = 4
+sky_top_color = Color( 0.0470588, 0.454902, 0.976471, 1 )
+sky_horizon_color = Color( 0.556863, 0.823529, 0.909804, 1 )
+sky_curve = 0.25
+ground_bottom_color = Color( 0.101961, 0.145098, 0.188235, 1 )
+ground_horizon_color = Color( 0.482353, 0.788235, 0.952941, 1 )
+ground_curve = 0.01
+sun_energy = 16.0
+
+[sub_resource type="Environment" id=2]
+background_mode = 2
+background_sky = SubResource( 1 )
+ambient_light_color = Color( 1, 0.454902, 0.607843, 1 )
+fog_sun_color = Color( 1, 0.454902, 0.607843, 1 )
+ssao_enabled = true
+ssao_color = Color( 1, 0.454902, 0.607843, 1 )
+glow_enabled = true
+glow_bloom = 0.4
+
+[sub_resource type="Shader" id=3]
+code = "shader_type canvas_item;
+
+uniform float lod: hint_range(0.0, 5) = 0.0;
+
+void fragment(){
+	vec4 color = texture(SCREEN_TEXTURE, SCREEN_UV, lod);
+	COLOR = color;
+}"
+
+[sub_resource type="ShaderMaterial" id=4]
+shader = SubResource( 3 )
+shader_param/lod = 3.0
+
+[sub_resource type="Animation" id=5]
+resource_name = "DEFAULT"
+length = 3.0
+step = 1.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("ColorRect:material:shader_param/lod")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 2, 3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 3.0, 2.0, 1.0, 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Label:text")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1, 2, 3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ "3", "2", "1", "0" ]
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 3 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "countdown_over"
+} ]
+}
+
+[sub_resource type="DynamicFontData" id=6]
+font_path = "res://assets/fonts/joystix monospace.ttf"
+
+[sub_resource type="DynamicFont" id=7]
+size = 132
+font_data = SubResource( 6 )
+
+[node name="Level" type="Spatial"]
+script = ExtResource( 3 )
+
+[node name="OutOfBounds" type="Position3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -125, 0 )
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 2 )
+
+[node name="DirectionalLight" type="DirectionalLight" parent="WorldEnvironment"]
+transform = Transform( 1, 0, 0, 0, -0.820142, 0.57216, 0, -0.57216, -0.820142, 0, 45.0032, -120.274 )
+light_energy = 1.5
+shadow_enabled = true
+directional_shadow_max_distance = 300.0
+
+[node name="Player" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.30318, 0 )
+
+[node name="Navigation" type="Navigation" parent="."]
+
+[node name="NavigationMeshInstance" type="NavigationMeshInstance" parent="Navigation"]
+
+[node name="TileGridMapHigh" type="GridMap" parent="Navigation/NavigationMeshInstance"]
+mesh_library = ExtResource( 1 )
+cell_size = Vector3( 8, 2, 8 )
+cell_scale = 8.0
+data = {
+"cells": PoolIntArray( 0, 0, 0, 65533, 0, 0, 65534, 0, 0, 65535, 0, 0, 0, 1, 0, 65533, 1, 0, 65534, 1, 0, 65535, 1, 0, 0, 65534, 0, 65533, 65534, 0, 65534, 65534, 0, 65535, 65534, 0, 0, 65535, 0, 65533, 65535, 0, 65534, 65535, 0, 65535, 65535, 0 )
+}
+__meta__ = {
+"_editor_clip_": 0
+}
+
+[node name="TileGridMapMiddle" type="GridMap" parent="Navigation/NavigationMeshInstance"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -50, 0 )
+mesh_library = ExtResource( 1 )
+cell_size = Vector3( 8, 2, 8 )
+cell_scale = 8.0
+data = {
+"cells": PoolIntArray(  )
+}
+__meta__ = {
+"_editor_clip_": 0
+}
+
+[node name="TileGridMapLow" type="GridMap" parent="Navigation/NavigationMeshInstance"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -100, 0 )
+mesh_library = ExtResource( 1 )
+cell_size = Vector3( 8, 2, 8 )
+cell_scale = 8.0
+data = {
+"cells": PoolIntArray(  )
+}
+__meta__ = {
+"_editor_clip_": 0
+}
+
+[node name="Objects" type="Spatial" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+pause_mode = 2
+
+[node name="Countdown" type="Control" parent="CanvasLayer"]
+pause_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/Countdown"]
+material = SubResource( 4 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/Countdown"]
+autoplay = "DEFAULT"
+anims/DEFAULT = SubResource( 5 )
+
+[node name="Timer" type="Timer" parent="CanvasLayer/Countdown"]
+
+[node name="Label" type="Label" parent="CanvasLayer/Countdown"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -54.5
+margin_top = -79.5
+margin_right = 54.5
+margin_bottom = 79.5
+custom_fonts/font = SubResource( 7 )
+text = "3"
+align = 1
+valign = 1
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="CanvasLayer/Countdown"]
+
+[node name="GameOver" parent="CanvasLayer" instance=ExtResource( 4 )]
+visible = false
+
+[node name="Godot" parent="." instance=ExtResource( 6 )]

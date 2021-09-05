@@ -1,0 +1,23 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://assets/textures/Orange_Texture_1.tres" type="Material" id=1]
+[ext_resource path="res://src/Utils/ShaderCache.gd" type="Script" id=2]
+[ext_resource path="res://assets/textures/Red_Texture_8.tres" type="Material" id=3]
+[ext_resource path="res://assets/textures/Back_Texture_9.tres" type="Material" id=4]
+
+[sub_resource type="PlaneMesh" id=1]
+
+[node name="ShaderCache" type="Spatial"]
+script = ExtResource( 2 )
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+mesh = SubResource( 1 )
+material/0 = ExtResource( 1 )
+
+[node name="MeshInstance2" type="MeshInstance" parent="."]
+mesh = SubResource( 1 )
+material/0 = ExtResource( 3 )
+
+[node name="MeshInstance3" type="MeshInstance" parent="."]
+mesh = SubResource( 1 )
+material/0 = ExtResource( 4 )
